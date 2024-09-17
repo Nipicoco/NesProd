@@ -72,7 +72,7 @@ export const albums: Album[] = [
             {
                 id: '3',
                 title: 'Milano lo Prado',
-                artist: 'El Jordan 23',
+                artist: 'El Jordan 23, Shiva, Nes',
                 album: 'PALABREO DEL FUTURO',
                 cover: '/palabreo.jpg',
                 audioSrc: '/milanoloprado.mp3',
@@ -80,7 +80,7 @@ export const albums: Album[] = [
                 releaseDate: 'Marzo 2024',
                 genre: 'Chillout',
                 totalplays: 5005000,
-                description: 'Sunset Lover es una melodía relajante que captura la esencia de una puesta de sol perfecta en la playa.'
+                description: ''
             },
             {
                 id: '4',
@@ -93,7 +93,7 @@ export const albums: Album[] = [
                 releaseDate: 'Marzo 2024',
                 genre: 'Chillout',
                 totalplays: 3003000,
-                description: 'Beach Party es una pista animada que te transporta a una fiesta en la playa con amigos y buena música.'
+                description: ''
             },
         ]
     }
