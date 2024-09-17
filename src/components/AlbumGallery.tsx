@@ -16,7 +16,7 @@ export default function AlbumGallery({ onAlbumClick, onBack }: AlbumGalleryProps
   const [hoveredAlbum, setHoveredAlbum] = useState<string | null>(null)
 
   return (
-    <div className="min-h-screen bg-[url('/album.jpg')] bg-cover bg-center bg-fixed">
+    <div className="min-h-screen bg-[url('/quelede.jpg')] bg-cover bg-center bg-fixed">
       <div className="fixed inset-0 backdrop-blur-md bg-black/50 overflow-hidden">
         <div className="absolute inset-0 overflow-y-auto">
           <div className="min-h-screen flex flex-col p-8">

@@ -48,7 +48,7 @@ export default function SongDetail({ song, onBack }: SongDetailProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[url('/album.jpg')] bg-cover bg-center flex items-center justify-center p-4 md:p-8 relative">
+    <div className="min-h-screen bg-[url('/quelede.jpg')] bg-cover bg-center flex items-center justify-center p-4 md:p-8 relative">
       <div className="absolute inset-0 backdrop-blur-md bg-black/70"></div>
       <motion.div
         className="w-full max-w-4xl z-10"

@@ -37,7 +37,7 @@ export default function StatsPage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[url('/album.jpg')] bg-cover bg-center">
+    <div className="min-h-screen bg-[url('/quelede.jpg')] bg-cover bg-center">
       <div className="absolute inset-0 backdrop-blur-md bg-black/70"></div>
       <div className="relative z-10 p-8 max-w-7xl mx-auto">
         <Link href="/">

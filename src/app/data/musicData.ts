@@ -21,6 +21,7 @@ export interface Song {
   description: string
   duration?: number
   popularity?: number
+  streams?: number
 }
 
 export const albums: Album[] = [
@@ -121,3 +122,91 @@ export const albums: Album[] = [
     }
     // Add more albums here
 ];
+
+
+
+export const topAlbums: Album[] = [
+    {
+      id: "1",
+      title: "QUE LE DE",
+      artist: "NES, Cris Mj",
+      spotifyUrl: 'https://open.spotify.com/album/5v3JncpvWjEDrGDeHJw9TL?si=CR_H49otSJu4zMzh52N-0Q',
+      cover: "/quelede.jpg",
+      releaseDate: "2023-01-01",
+      songs: [
+        // Songs for Top Album 1
+      ]
+    },
+    {
+      id: "2",
+      title: "Partyson",
+      artist: "Cris Mj",
+      spotifyUrl: 'https://open.spotify.com/album/5v3JncpvWjEDrGDeHJw9TL?si=CR_H49otSJu4zMzh52N-0Q',
+      cover: "/partyson.jpg",
+      releaseDate: "2023-02-01",
+      songs: [
+        // Songs for Top Album 2
+      ]
+    },
+    {
+      id: "3",
+      title: "No Ponga Excusas",
+      artist: "Cris Mj",
+      spotifyUrl: 'https://open.spotify.com/album/3j9j0wgXwhQyr4urIIkfL4?si=eZssBc6ATrGkNhimo_rBqw',
+      cover: "/nopongaexcusa.jpg",
+      releaseDate: "2023-03-01",
+      songs: [
+        // Songs for Top Album 3
+      ]
+    },
+    // Add more top albums as needed
+  ]
+
+export const topSongs: Song[] = [
+  { 
+    id: "1", 
+    title: "SI NO ES CONTIGO", 
+    artist: "Cris Mj", 
+    album: "Si NO ES CONTIGO",
+    cover: "/partyson.jpg",
+    audioSrc: "/partyson.mp3",
+    releaseDate: "2017-04-28",
+    genre: "Hip-Hop",
+    totalplays: 250544054,
+    description: "A hit single by DJ Khaled featuring multiple artists.",
+    duration: 260,
+    popularity: 95,
+    streams: 250
+  },
+  { 
+    id: "2", 
+    title: "Cabaña", 
+    artist: "El Jordan 23", 
+    album: "PALABREO DEL FUTURO",
+    cover: "/cabana.jpg",
+    audioSrc: "/cabana.mp3",
+    releaseDate: "2024-06-16",
+    genre: "R&B",
+    totalplays: 250544054,
+    description: "A popular track by DJ Khaled featuring Rihanna and Bryson Tiller.",
+    duration: 240,
+    popularity: 90,
+    streams: 202
+  },
+  { 
+    id: "3", 
+    title: "Daytona", 
+    artist: "Cris Mj", 
+    album: "Partyson",
+    cover: "/partyson.jpg",
+    audioSrc: "/partyson.mp3",
+    releaseDate: "2017-06-16",
+    genre: "R&B",
+    totalplays: 250544054,
+    description: "A popular track by DJ Khaled featuring Rihanna and Bryson Tiller.",
+    duration: 240,
+    popularity: 90,
+    streams: 194
+  },
+  
+]

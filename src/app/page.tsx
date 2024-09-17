@@ -5,19 +5,24 @@ import { MusicPlayerProvider } from './contexts/MusicPlayerContext'
 import { Toaster } from "@/components/ui/toaster"
 import LandingScreen from '@/components/LandingScreen'
 import AlbumGallery from '@/components/AlbumGallery'
+import ProducerPortfolio from '@/components/ProducerPortfolio'
 import MusicGallery from '@/components/MusicGallery'
 import AlbumDetail from '@/components/SongDetail'
 import ContactForm from '@/components/ContactForm'
-import { Album, Song } from '@/app/data/musicData'
+import { Album, Song, topAlbums, topSongs } from '@/app/data/musicData'
 
 export default function Home() {
   const [currentScreen, setCurrentScreen] = useState('landing')
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null)
   const [selectedSong, setSelectedSong] = useState<Song | null>(null)
   const [isContactFormVisible, setIsContactFormVisible] = useState(false)
-
+  
   const transitionToGallery = () => {
     setCurrentScreen('gallery')
+  }
+
+  const transitionToPortfolio = () => {
+    setCurrentScreen('portfolio')
   }
 
   const transitionToContact = () => {
@@ -54,7 +59,10 @@ export default function Home() {
         <div>
           <AnimatePresence mode="wait">
             {currentScreen === 'landing' && (
-              <LandingScreen key="landing" onContinue={transitionToGallery} onContact={transitionToContact} />
+              <LandingScreen key="landing" onContinue={transitionToGallery} onContact={transitionToContact} onPortfolio={transitionToPortfolio} />
+            )}
+            {currentScreen === 'portfolio' && (
+              <ProducerPortfolio key="portfolio" onContinue={transitionToGallery} albums={topAlbums} topSongs={topSongs} />
             )}
             {currentScreen === 'gallery' && (
               <AlbumGallery key="gallery" onAlbumClick={transitionToAlbum} onBack={goBack} />

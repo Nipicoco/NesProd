@@ -8,9 +8,10 @@ import { ArrowRight } from "lucide-react"
 interface LandingScreenProps {
   onContinue: () => void
   onContact: () => void
+  onPortfolio: () => void
 }
 
-export default function LandingScreen({ onContinue, onContact }: LandingScreenProps) {
+export default function LandingScreen({ onContinue, onContact, onPortfolio }: LandingScreenProps) {
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function LandingScreen({ onContinue, onContact }: LandingScreenPr
   }
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-[url('/album.jpg')] bg-cover bg-center">
+    <div className="relative min-h-screen flex items-center justify-center bg-[url('/quelede.jpg')] bg-cover bg-center">
       <div className="absolute inset-0 backdrop-blur-md bg-black/50" />
       <motion.div
         className="relative z-10 p-8 rounded-lg text-white text-center max-w-2xl"
@@ -69,6 +70,15 @@ export default function LandingScreen({ onContinue, onContact }: LandingScreenPr
               className="text-white"
             >
               Contacto
+            </Button>
+          </div>
+          <div>
+            <Button
+              onClick={onPortfolio}
+              variant="link"
+              className="text-white"
+            >
+              Portafolio
             </Button>
           </div>
         </motion.div>

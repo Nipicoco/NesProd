@@ -32,7 +32,7 @@ export default function MusicGallery({ album, onSongClick, onBack }: MusicGaller
   const averagePopularity = album.songs.reduce((sum, song) => sum + (song.popularity || 0), 0) / album.songs.length
 
   return (
-    <div className="min-h-screen bg-[url('/album.jpg')] bg-cover bg-center bg-fixed">
+    <div className="min-h-screen bg-[url('/quelede.jpg')] bg-cover bg-center bg-fixed">
       <div className="fixed inset-0 backdrop-blur-md bg-black/50 overflow-hidden">
         <div className="absolute inset-0 overflow-y-auto">
           <div className="min-h-screen flex flex-col p-8">
@@ -117,7 +117,7 @@ export default function MusicGallery({ album, onSongClick, onBack }: MusicGaller
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              🎵 Canciones 🎵
+               Canciones 
             </motion.h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
               <AnimatePresence>
