@@ -1,16 +1,17 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ArrowLeft, Play, Pause, Clock, Calendar, Music2, Disc } from "lucide-react"
+import { ArrowLeft, Play, Pause, Clock } from "lucide-react"
 import { useMusicPlayer } from '@/app/contexts/MusicPlayerContext'
 import Image from 'next/image'
+import { Song } from '@/app/data/musicData'
 
 interface SongDetailProps {
-  song: any
+  song: Song
   onBack: () => void
 }
 
@@ -32,7 +33,7 @@ const platformConfig = {
 }
 
 export default function SongDetail({ song, onBack }: SongDetailProps) {
-  const { play, pause, isPlaying, setPlaylist, playSpecificSong, isSongPlaying } = useMusicPlayer()
+  const { pause, setPlaylist, playSpecificSong, isSongPlaying } = useMusicPlayer()
   const [selectedPlatform, setSelectedPlatform] = useState<Platform>('spotify')
 
   useEffect(() => {
