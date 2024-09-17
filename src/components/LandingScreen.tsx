@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
@@ -13,9 +13,11 @@ interface LandingScreenProps {
 
 export default function LandingScreen({ onContinue, onContact, onPortfolio }: LandingScreenProps) {
   const [isLoaded, setIsLoaded] = useState(false)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
     setIsLoaded(true)
+    audioRef.current = new Audio('/tag.mp3')
   }, [])
 
   const containerVariants = {
@@ -24,7 +26,7 @@ export default function LandingScreen({ onContinue, onContact, onPortfolio }: La
       opacity: 1,
       transition: { 
         when: "beforeChildren",
-        staggerChildren: 0.3 // Reduced stagger duration
+        staggerChildren: 0.3
       }
     }
   }
@@ -32,6 +34,13 @@ export default function LandingScreen({ onContinue, onContact, onPortfolio }: La
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
+  }
+
+  const handlePortfolioClick = () => {
+    if (audioRef.current) {
+      audioRef.current.play().catch(error => console.error('Error playing audio:', error))
+    }
+    onPortfolio()
   }
 
   return (
@@ -74,7 +83,7 @@ export default function LandingScreen({ onContinue, onContact, onPortfolio }: La
           </div>
           <div>
             <Button
-              onClick={onPortfolio}
+              onClick={handlePortfolioClick}
               variant="link"
               className="text-white"
             >

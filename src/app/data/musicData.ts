@@ -159,6 +159,7 @@ export const topAlbums: Album[] = [
         // Songs for Top Album 3
       ]
     },
+    
     // Add more top albums as needed
   ]
 
@@ -168,7 +169,7 @@ export const topSongs: Song[] = [
     title: "SI NO ES CONTIGO", 
     artist: "Cris Mj", 
     album: "Si NO ES CONTIGO",
-    cover: "/partyson.jpg",
+    cover: "/sinoescontigo.jpg",
     audioSrc: "/partyson.mp3",
     releaseDate: "2017-04-28",
     genre: "Hip-Hop",
@@ -208,5 +209,34 @@ export const topSongs: Song[] = [
     popularity: 90,
     streams: 194
   },
-  
+  { 
+    id: "4", 
+    title: "Partyson", 
+    artist: "Cris Mj", 
+    album: "Partyson",
+    cover: "/partyson.jpg",
+    audioSrc: "/partyson.mp3",
+    releaseDate: "2017-06-16",
+    genre: "R&B",
+    totalplays: 250544054,
+    description: "A popular track by DJ Khaled featuring Rihanna and Bryson Tiller.",
+    duration: 240,
+    popularity: 90,
+    streams: 60
+  },
+  {
+    id: "5",
+    title: "Que Hay Amor",
+    artist: "Cris Mj",
+    album: "Que Hay amor",
+    cover: "/quehayamor.jpg",
+    audioSrc: "/quehayamor.mp3",
+    releaseDate: "2023-04-01",
+    genre: "Hip-Hop",
+    totalplays: 250544054,
+    description: "A popular track by DJ Khaled featuring Rihanna and Bryson Tiller.",
+    duration: 240,
+    popularity: 90,
+    streams: 55
+  },
 ]

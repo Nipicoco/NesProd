@@ -37,7 +37,7 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
     bio: "Joaquin Nicolas Rodriguez Vergara, Nacido en la ciudad de Villarrica, Chile. Empezando desde pequeño con la musica, creando sus propias letras y ritmos, hasta que decidió empezar a producir y crear su propio estilo.",
     achievements: [
       { id: 1, description: "Más de 5 discos de platino", isBiggest: true },
-      { id: 2, description: "600 millones de reproducciones totales", isSecondBiggest: true },
+      { id: 2, description: "600+ millones de reproducciones totales", isSecondBiggest: true },
       { id: 3, description: "Productor del Año en los Premios de la Música" },
       { id: 4, description: "Colaboraciones con artistas de renombre mundial" },
       { id: 5, description: "Reconocido por su innovación en la producción musical" },
@@ -74,8 +74,8 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="flex flex-col space-y-8"
               >
-                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl">
-                  <CardContent className="p-6 flex items-center">
+                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl h-full">
+                  <CardContent className="p-6 flex items-center h-full">
                     <Image
                       src={producerInfo.image}
                       alt={producerInfo.name}
@@ -110,8 +110,8 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl">
-                  <CardContent className="p-6">
+                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl h-full">
+                  <CardContent className="p-6 h-full">
                     <h3 className="text-xl font-bold mb-4 flex items-center">
                       <Music className="mr-2" /> Discografía
                     </h3>
@@ -162,8 +162,8 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="flex flex-col space-y-8"
               >
-                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl">
-                  <CardContent className="p-6">
+                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl h-full">
+                  <CardContent className="p-6 h-full">
                     <h3 className="text-xl font-bold mb-4 flex items-center">
                       <Award className="mr-2" /> Logros
                     </h3>
@@ -201,14 +201,14 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl">
-                  <CardContent className="p-6">
+                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl h-full">
+                  <CardContent className="p-6 h-full flex flex-col">
                     <h3 className="text-xl font-bold mb-4 flex items-center">
                       <Headphones className="mr-2" /> Colaboraciones
                     </h3>
-                    <div className="space-y-4">
+                    <div className="space-y-4 overflow-y-auto max-h-96 flex-grow pb-5">
                       {topSongs.map((song, index) => (
-                        <div key={song.id} className="flex items-center space-x-4 bg-white/5 p-3 rounded-lg">
+                        <div key={song.id} className="flex items-center space-x-4 bg-white/5 p-3 rounded-lg hover:bg-white/10 transition-colors">
                           <Image
                             src={song.cover}
                             alt={song.title}
