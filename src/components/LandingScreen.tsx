@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, PhoneCall } from "lucide-react"
 
 interface LandingScreenProps {
   onContinue: () => void
@@ -64,32 +64,36 @@ export default function LandingScreen({ onContinue, onContact, onPortfolio }: La
           <motion.span variants={itemVariants}>💸</motion.span>
         </motion.h1>
         <motion.div className="space-y-4" variants="visible">
-          <Button
-            onClick={onContinue}
-            variant="secondary"
-            size="lg"
-            className="font-semibold w-full sm:w-auto"
-          >
-            Demosle <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <div>
+            <Button
+              onClick={handlePortfolioClick}
+              variant="secondary"
+              size="lg"
+              className="font-semibold w-full sm:w-auto"
+            >
+              Portafolio <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+          <div>
+            <Button
+              onClick={onContinue}
+              variant="secondary"
+              size="lg"
+              className="font-semibold w-full sm:w-auto"
+            >
+              Galeria Interactiva <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
           <div>
             <Button
               onClick={onContact}
               variant="link"
               className="text-white"
             >
-              Contacto
+              Contacto <PhoneCall className="ml-2 h-4 w-4" />
             </Button>
           </div>
-          <div>
-            <Button
-              onClick={handlePortfolioClick}
-              variant="link"
-              className="text-white"
-            >
-              Portafolio
-            </Button>
-          </div>
+         
         </motion.div>
       </motion.div>
     </div>

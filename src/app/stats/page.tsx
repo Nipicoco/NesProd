@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Music, Calendar, BarChart } from "lucide-react"
+import { ArrowLeft, Music, Calendar, BarChart, ArrowRight } from "lucide-react"
 import Link from 'next/link'
 import Image from 'next/image'
 

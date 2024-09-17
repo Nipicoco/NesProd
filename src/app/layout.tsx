@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "NES Productions",
-  description: "Haciendo música con flow",
+  description: "HACIENDO MILLONES",
 }
 
 export default function RootLayout({
@@ -19,15 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
+        
           {children}
           <Toaster />
-        </ThemeProvider>
       </body>
     </html>
   )

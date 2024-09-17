@@ -170,7 +170,7 @@ export const topSongs: Song[] = [
     artist: "Cris Mj", 
     album: "Si NO ES CONTIGO",
     cover: "/sinoescontigo.jpg",
-    audioSrc: "/partyson.mp3",
+    audioSrc: "/sinoescontigo.mp3",
     releaseDate: "2017-04-28",
     genre: "Hip-Hop",
     totalplays: 250544054,
@@ -200,7 +200,7 @@ export const topSongs: Song[] = [
     artist: "Cris Mj", 
     album: "Partyson",
     cover: "/partyson.jpg",
-    audioSrc: "/partyson.mp3",
+    audioSrc: "/daytona.mp3",
     releaseDate: "2017-06-16",
     genre: "R&B",
     totalplays: 250544054,
@@ -211,6 +211,21 @@ export const topSongs: Song[] = [
   },
   { 
     id: "4", 
+    title: "No Ponga Excusas", 
+    artist: "Cris Mj", 
+    album: "No Ponga Excusas",
+    cover: "/nopongaexcusa.jpg",
+    audioSrc: "/nopongaexcusa.mp3",
+    releaseDate: "2017-06-16",
+    genre: "R&B",
+    totalplays: 250544054,
+    description: "A popular track by DJ Khaled featuring Rihanna and Bryson Tiller.",
+    duration: 240,
+    popularity: 90,
+    streams: 73
+  },
+  {
+    id: "5",
     title: "Partyson", 
     artist: "Cris Mj", 
     album: "Partyson",
@@ -225,7 +240,7 @@ export const topSongs: Song[] = [
     streams: 60
   },
   {
-    id: "5",
+    id: "6",
     title: "Que Hay Amor",
     artist: "Cris Mj",
     album: "Que Hay amor",

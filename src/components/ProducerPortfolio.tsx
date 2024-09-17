@@ -5,12 +5,15 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Music, Award, Headphones, TrendingUp, Mail, Star } from "lucide-react"
+import { ArrowRight, ArrowLeft, Music, Award, Headphones, TrendingUp, Mail, Star } from "lucide-react"
 import { Album, Song } from '@/app/data/musicData'
 import Image from 'next/image'
+import { useMusicPlayer } from '@/app/contexts/MusicPlayerContext'
+import { Play, Pause } from "lucide-react"
 
 interface ProducerPortfolioProps {
   onContinue: () => void
+  onBack: () => void
   albums: Album[]
   topSongs: Song[]
 }
@@ -28,8 +31,10 @@ const socialMediaConfig: Record<SocialMediaPlatform, { color: string, icon: stri
   }
 }
 
-export default function ProducerPortfolio({ onContinue, albums, topSongs }: ProducerPortfolioProps) {
+export default function ProducerPortfolio({ onContinue, onBack, albums, topSongs }: ProducerPortfolioProps) {
+  const { play, pause, isPlaying, playSpecificSong, isSongPlaying, currentSong } = useMusicPlayer()
   const [hoveredAlbum, setHoveredAlbum] = useState<string | null>(null)
+  const [hoveredSong, setHoveredSong] = useState<string | null>(null)
 
   const producerInfo = {
     name: "NES",
@@ -50,49 +55,62 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
     producciones: 60,
   }
 
+  const handlePlayPause = (song: Song) => {
+    if (isSongPlaying(song.id)) {
+      pause()
+    } else {
+      playSpecificSong(song)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[url('/quelede.jpg')] bg-cover bg-center bg-fixed">
       <div className="fixed inset-0 backdrop-blur-md bg-black/50 overflow-hidden">
         <div className="absolute inset-0 overflow-y-auto">
-          <div className="min-h-screen flex flex-col p-8">
+          <div className="min-h-screen flex flex-col p-4 sm:p-8">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-white mb-8"
+              className="text-white mb-4 sm:mb-8"
             >
-              <h1 className="text-4xl font-bold mb-4">Portafolio</h1>
-              <Button onClick={onContinue} variant="link" className="text-white hover:text-gray-300 transition-colors">
-                Discografía Interactiva <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <h1 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-4">Portafolio</h1>
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                <Button onClick={onBack} variant="link" className="text-white hover:text-gray-300 transition-colors">
+                  <ArrowLeft className="mr-2 h-4 w-4" /> Volver
+                </Button>
+                <Button onClick={onContinue} variant="link" className="text-white hover:text-gray-300 transition-colors">
+                  Discografía Interactiva <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 mb-8">
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="flex flex-col space-y-8"
+                className="flex flex-col space-y-4 sm:space-y-8"
               >
-                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl h-full">
-                  <CardContent className="p-6 flex items-center h-full">
+                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl">
+                  <CardContent className="p-4 sm:p-6 flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
                     <Image
                       src={producerInfo.image}
                       alt={producerInfo.name}
                       width={300}
                       height={300}
-                      className="rounded-lg shadow-lg mb-4 w-64 h-64 object-cover"
+                      className="rounded-lg shadow-lg w-48 h-48 sm:w-64 sm:h-64 object-cover"
                     />
-                    <div className="ml-6 flex-1">
-                      <h2 className="text-3xl font-bold mb-2">{producerInfo.name}</h2>
-                      <h4 className="text-xl font-bold mb-2">Productor - Ingeniero en Sonido</h4>
-                      <p className="text-gray-300 mb-4">{producerInfo.bio}</p>
-                      <p className="text-gray-300 mb-4">Mas de {producerInfo.producciones} Canciones hechas para artistas de todo el mundo</p>
-                      <div className="flex items-center space-x-4">
+                    <div className="flex-1 text-center sm:text-left">
+                      <h2 className="text-2xl sm:text-3xl font-bold mb-2">{producerInfo.name}</h2>
+                      <h4 className="text-lg sm:text-xl font-bold mb-2">Productor - Ingeniero en Sonido</h4>
+                      <p className="text-sm sm:text-base text-gray-300 mb-4">{producerInfo.bio}</p>
+                      <p className="text-sm sm:text-base text-gray-300 mb-4">Mas de {producerInfo.producciones} Canciones hechas para artistas de todo el mundo</p>
+                      <div className="flex items-center justify-center sm:justify-start space-x-4">
                         <Mail className="h-5 w-5 text-gray-300" />
-                        <span>{producerInfo.contact}</span>
+                        <span className="text-sm sm:text-base">{producerInfo.contact}</span>
                       </div>
-                      <div className="flex items-center space-x-4 mt-4">
+                      <div className="flex items-center justify-center sm:justify-start space-x-4 mt-4">
                         {producerInfo.socialMedia.map((social, index) => (
                           <a key={index} href={social.url} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2">
                             <Image
@@ -102,7 +120,7 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
                               height={20}
                               className="mr-2"
                             />
-                            <span>{social.name}</span>
+                            <span className="text-sm sm:text-base">{social.name}</span>
                           </a>
                         ))}
                       </div>
@@ -110,12 +128,12 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl h-full">
-                  <CardContent className="p-6 h-full">
+                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl">
+                  <CardContent className="p-4 sm:p-6">
                     <h3 className="text-xl font-bold mb-4 flex items-center">
                       <Music className="mr-2" /> Discografía
                     </h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4">
                       <AnimatePresence>
                         {albums.slice(0, 6).map((album, index) => (
                           <motion.div
@@ -144,7 +162,7 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
                                   exit={{ opacity: 0 }}
                                   className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-center p-2 rounded-md"
                                 >
-                                  <p className="font-semibold text-sm">{album.title}</p>
+                                  <p className="font-semibold text-xs sm:text-sm">{album.title}</p>
                                 </motion.div>
                               )}
                             </div>
@@ -160,10 +178,10 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="flex flex-col space-y-8"
+                className="flex flex-col space-y-4 sm:space-y-8"
               >
-                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl h-full">
-                  <CardContent className="p-6 h-full">
+                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl">
+                  <CardContent className="p-4 sm:p-6">
                     <h3 className="text-xl font-bold mb-4 flex items-center">
                       <Award className="mr-2" /> Logros
                     </h3>
@@ -173,25 +191,25 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
                           key={achievement.id} 
                           className={`flex items-start ${
                             achievement.isBiggest 
-                              ? 'bg-yellow-600 p-4 rounded-lg shadow-lg transform' 
+                              ? 'bg-yellow-600 p-3 sm:p-4 rounded-lg shadow-lg transform' 
                               : achievement.isSecondBiggest 
-                                ? 'bg-blue-600 p-3 rounded-lg shadow-md' 
+                                ? 'bg-blue-600 p-2 sm:p-3 rounded-lg shadow-md' 
                                 : ''
                           }`}
                         >
                           {achievement.isBiggest ? (
-                            <Star className="w-6 h-6 mr-2 text-yellow-300 flex-shrink-0" />
+                            <Star className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-yellow-300 flex-shrink-0" />
                           ) : achievement.isSecondBiggest ? (
-                            <Award className="w-5 h-5 mr-2 text-blue-300 flex-shrink-0" />
+                            <Award className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-300 flex-shrink-0" />
                           ) : (
-                            <TrendingUp className="mr-2 mt-1 flex-shrink-0" />
+                            <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 mr-2 mt-1 flex-shrink-0" />
                           )}
                           <span className={`${
                             achievement.isBiggest 
-                              ? 'text-2xl font-bold text-white' 
+                              ? 'text-lg sm:text-2xl font-bold text-white' 
                               : achievement.isSecondBiggest 
-                                ? 'text-xl font-semibold text-white' 
-                                : 'text-glow'
+                                ? 'text-base sm:text-xl font-semibold text-white' 
+                                : 'text-sm sm:text-base text-glow'
                           }`}>
                             {achievement.description}
                           </span>
@@ -201,19 +219,19 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl h-full">
-                  <CardContent className="p-6 h-full flex flex-col">
+                <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl">
+                  <CardContent className="p-4 sm:p-6 flex flex-col h-full">
                     <h3 className="text-xl font-bold mb-4 flex items-center">
                       <Headphones className="mr-2" /> Colaboraciones
                     </h3>
-                    <div className="space-y-4 overflow-y-auto max-h-96 flex-grow pb-5">
+                    <div className="space-y-4 overflow-y-auto max-h-64 sm:max-h-96 flex-grow pb-5">
                       {topSongs.map((song, index) => (
                         <div key={song.id} className="flex items-center space-x-4 bg-white/5 p-3 rounded-lg hover:bg-white/10 transition-colors">
                           <Image
                             src={song.cover}
                             alt={song.title}
-                            width={60}
-                            height={60}
+                            width={48}
+                            height={48}
                             className="rounded-md"
                           />
                           <div className="flex-1">
@@ -223,6 +241,17 @@ export default function ProducerPortfolio({ onContinue, albums, topSongs }: Prod
                               {(song.streams || 0).toFixed(0)}M Reproducciones
                             </Badge>
                           </div>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handlePlayPause(song)}
+                          >
+                            {isSongPlaying(song.id) ? (
+                              <Pause className="text-white h-5 w-5 sm:h-6 sm:w-6" />
+                            ) : (
+                              <Play className="text-white h-5 w-5 sm:h-6 sm:w-6" />
+                            )}
+                          </Button>
                         </div>
                       ))}
                     </div>

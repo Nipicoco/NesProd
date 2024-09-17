@@ -46,6 +46,8 @@ export default function Home() {
       setCurrentScreen('gallery')
     } else if (currentScreen === 'gallery') {
       setCurrentScreen('landing')
+    } else if (currentScreen === 'portfolio') {
+      setCurrentScreen('landing')
     }
   }
 
@@ -62,7 +64,7 @@ export default function Home() {
               <LandingScreen key="landing" onContinue={transitionToGallery} onContact={transitionToContact} onPortfolio={transitionToPortfolio} />
             )}
             {currentScreen === 'portfolio' && (
-              <ProducerPortfolio key="portfolio" onContinue={transitionToGallery} albums={topAlbums} topSongs={topSongs} />
+              <ProducerPortfolio key="portfolio" onBack={goBack} onContinue={transitionToGallery}  albums={topAlbums} topSongs={topSongs} />
             )}
             {currentScreen === 'gallery' && (
               <AlbumGallery key="gallery" onAlbumClick={transitionToAlbum} onBack={goBack} />
