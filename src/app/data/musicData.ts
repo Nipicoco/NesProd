@@ -62,29 +62,6 @@ export const albums: Album[] = [
         ]
     },
     {
-        id: '2',
-        title: 'Cabaña',
-        artist: 'El Jordan 23',
-        cover: '/cabana.jpg',
-        releaseDate: 'Enero 2024',
-        spotifyUrl: 'https://open.spotify.com/album/4pB67EzrWH1xI6h7y4DbRT?si=XLIqLMyBTBaHHWQs_fkZTA',
-        songs: [
-            {
-                id: '2',
-                title: 'Song 2',
-                artist: 'Artist 2',
-                  album: 'Cabaña',
-                cover: '/album2.jpg',
-                audioSrc: '/cabana.mp3',
-                duration: 200,
-                releaseDate: 'Febrero 2024',
-                genre: 'Pop',
-                totalplays: 20020000,
-                description: 'Description of Song 2'
-            },
-        ]
-    },
-    {
         id: '3',
         title: 'PALABREO DEL FUTURO',
         artist: 'El Jordan 23',
@@ -94,11 +71,11 @@ export const albums: Album[] = [
         songs: [
             {
                 id: '3',
-                title: 'Sunset Lover',
-                artist: 'DJ Sunset',
-                album: 'Sunset Vibes',
-                cover: '/sunset_lover.jpg',
-                audioSrc: '/sunset_lover.mp3',
+                title: 'Milano lo Prado',
+                artist: 'El Jordan 23',
+                album: 'PALABREO DEL FUTURO',
+                cover: '/palabreo.jpg',
+                audioSrc: '/milanoloprado.mp3',
                 duration: 180,
                 releaseDate: 'Marzo 2024',
                 genre: 'Chillout',
@@ -107,11 +84,11 @@ export const albums: Album[] = [
             },
             {
                 id: '4',
-                title: 'Beach Party',
-                artist: 'DJ Sunset',
-                album: 'Sunset Vibes',
-                cover: '/beach_party.jpg',
-                audioSrc: '/beach_party.mp3',
+                title: 'Cabaña',
+                artist: 'El Jordan 23',
+                album: 'PALABREO DEL FUTURO',
+                cover: '/cabana.jpg',
+                audioSrc: '/cabana.mp3',
                 duration: 210,
                 releaseDate: 'Marzo 2024',
                 genre: 'Chillout',
