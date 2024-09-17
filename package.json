@@ -29,7 +29,8 @@
     "react-dom": "^18",
     "spotify-web-api-node": "^5.0.2",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "framer-motion": "^10.12.16"
   },
   "devDependencies": {
     "typescript": "^5",
