@@ -32,9 +32,8 @@ const socialMediaConfig: Record<SocialMediaPlatform, { color: string, icon: stri
 }
 
 export default function ProducerPortfolio({ onContinue, onBack, albums, topSongs }: ProducerPortfolioProps) {
-  const { play, pause, isPlaying, playSpecificSong, isSongPlaying, currentSong } = useMusicPlayer()
+  const { pause, playSpecificSong, isSongPlaying } = useMusicPlayer()
   const [hoveredAlbum, setHoveredAlbum] = useState<string | null>(null)
-  const [hoveredSong, setHoveredSong] = useState<string | null>(null)
 
   const producerInfo = {
     name: "NES",
@@ -225,7 +224,7 @@ export default function ProducerPortfolio({ onContinue, onBack, albums, topSongs
                       <Headphones className="mr-2" /> Colaboraciones
                     </h3>
                     <div className="space-y-4 overflow-y-auto max-h-64 sm:max-h-96 flex-grow pb-5">
-                      {topSongs.map((song, index) => (
+                      {topSongs.map((song) => (
                         <div key={song.id} className="flex items-center space-x-4 bg-white/5 p-3 rounded-lg hover:bg-white/10 transition-colors">
                           <Image
                             src={song.cover}

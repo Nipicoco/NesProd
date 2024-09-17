@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -15,7 +15,7 @@ interface MusicGalleryProps {
 }
 
 export default function MusicGallery({ album, onSongClick, onBack }: MusicGalleryProps) {
-  const { play, pause, isPlaying, currentSong, playSpecificSong } = useMusicPlayer()
+  const { pause, isPlaying, currentSong, playSpecificSong } = useMusicPlayer()
   const [hoveredSong, setHoveredSong] = useState<string | null>(null)
   const [showStats, setShowStats] = useState(true)
 
@@ -29,7 +29,6 @@ export default function MusicGallery({ album, onSongClick, onBack }: MusicGaller
 
   const totalPlays = album.songs.reduce((sum, song) => sum + song.totalplays, 0)
   const totalDuration = album.songs.reduce((sum, song) => sum + (song.duration || 0), 0)
-  const averagePopularity = album.songs.reduce((sum, song) => sum + (song.popularity || 0), 0) / album.songs.length
 
   return (
     <div className="min-h-screen bg-[url('/quelede.jpg')] bg-cover bg-center bg-fixed">
