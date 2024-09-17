@@ -23,29 +23,14 @@ export default function LandingScreen({ onContinue, onContact }: LandingScreenPr
       opacity: 1,
       transition: { 
         when: "beforeChildren",
-        staggerChildren: 1.5
+        staggerChildren: 0.3 // Reduced stagger duration
       }
     }
   }
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { delay: 2.0 } }
-  }
-
-  const haciendoVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { delay: 0.5 } }
-  }
-
-  const milloVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { delay: 1.0 } }
-  }
-
-  const nesVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { delay: 1.5 } }
+    visible: { opacity: 1, y: 0 }
   }
 
   return (
@@ -57,18 +42,18 @@ export default function LandingScreen({ onContinue, onContact }: LandingScreenPr
         animate={isLoaded ? "visible" : "hidden"}
         variants={containerVariants}
       >
-        <motion.h1 className="text-4xl md:text-6xl font-bold mb-8" variants={containerVariants}>
-          <motion.span variants={haciendoVariants}>Haciendo</motion.span>{' '}
-          <motion.span variants={milloVariants}>Millo</motion.span>
+        <motion.h1 className="text-4xl md:text-6xl font-bold mb-8" variants="visible">
+          <motion.span variants={itemVariants}>Haciendo</motion.span>{' '}
+          <motion.span variants={itemVariants}>Millo</motion.span>
           <motion.span 
-            variants={nesVariants}
+            variants={itemVariants}
             className="bg-gradient-to-r from-blue-400 via-blue-600 to-blue-800 bg-clip-text text-transparent animate-gradient"
           >
             NES
           </motion.span>{' '}
-          <motion.span variants={nesVariants}>💸</motion.span>
+          <motion.span variants={itemVariants}>💸</motion.span>
         </motion.h1>
-        <motion.div className="space-y-4" variants={itemVariants}>
+        <motion.div className="space-y-4" variants="visible">
           <Button
             onClick={onContinue}
             variant="secondary"
