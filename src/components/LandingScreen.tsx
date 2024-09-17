@@ -52,7 +52,7 @@ export default function LandingScreen({ onContinue, onContact, onPortfolio }: La
         animate={isLoaded ? "visible" : "hidden"}
         variants={containerVariants}
       >
-        <motion.h1 className="text-4xl md:text-6xl font-bold mb-8" variants="visible">
+        <motion.h1 className="text-4xl md:text-6xl font-bold mb-8" initial="hidden" animate="visible" variants={itemVariants}>
           <motion.span variants={itemVariants}>Haciendo</motion.span>{' '}
           <motion.span variants={itemVariants}>Millo</motion.span>
           <motion.span 
