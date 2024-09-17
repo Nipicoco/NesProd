@@ -48,8 +48,8 @@ export default function ProducerPortfolio({ onContinue, onBack, albums, topSongs
     ],
     contact: "nes@gmail.com",
     socialMedia: [
-      { name: "Instagram", url: "https://www.instagram.com/nes", platform: 'instagram' },
-      { name: "Spotify", url: "https://www.spotify.com/nes", platform: 'spotify' },
+      { name: "Instagram", url: "https://www.instagram.com/nesontheshet/", platform: 'instagram' },
+      { name: "Spotify", url: "https://open.spotify.com/artist/3dC19P4w1BbDuwCailjybv?si=454f0dbf46c8490c", platform: 'spotify' },
     ],
     producciones: 60,
   }

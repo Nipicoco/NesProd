@@ -121,7 +121,7 @@ export default function SongDetail({ song, onBack }: SongDetailProps) {
                     className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0"
                   >
                     {isSongPlaying(song.id) ? <Pause className="mr-2 h-5 w-5" /> : <Play className="mr-2 h-5 w-5" />}
-                    {isSongPlaying(song.id) ? 'Pause' : 'Play'}
+                    {isSongPlaying(song.id) ? 'Pausar' : 'Reproducir'}
                   </Button>
                   <Select value={selectedPlatform} onValueChange={(value: Platform) => setSelectedPlatform(value)}>
                     <SelectTrigger className={`w-full text-white border-none ${platformConfig[selectedPlatform].color}`}>
@@ -164,11 +164,11 @@ export default function SongDetail({ song, onBack }: SongDetailProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.5 }}
             >
-              <h3 className="text-2xl font-semibold mb-4">Stats</h3>
+              <h3 className="text-2xl font-semibold mb-4">Estadisticas</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-center">
                   <Clock className="mr-2 h-5 w-5 text-gray-400" />
-                  <span>{song.totalplays.toLocaleString()} plays</span>
+                  <span>{song.totalplays.toLocaleString()} Reproducciones</span>
                 </div>
               </div>
             </motion.div>

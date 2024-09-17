@@ -83,10 +83,10 @@ export default function MusicGallery({ album, onSongClick, onBack }: MusicGaller
                             </div>
                             <div className="flex items-center">
                               <Disc className="mr-2 h-5 w-5 text-purple-400" />
-                              <span>{totalPlays.toLocaleString()} total plays</span>
+                              <span>{totalPlays.toLocaleString()} Reproducciones</span>
                             </div>
                             <div className="flex items-center">
-                              <Calendar className="mr-2 h-5 w-5 text-purple-400" />
+                              <Calendar className="mr-2 h-5 w-5 text-purple-400" /> 
                               <span>{album.releaseDate}</span>
                             </div>
                           </div>
@@ -96,10 +96,10 @@ export default function MusicGallery({ album, onSongClick, onBack }: MusicGaller
                               className="bg-[#1DB954] hover:bg-[#1ed760] text-white"
                               onClick={() => window.open(album.spotifyUrl, '_blank')}
                             >
-                              Open in Spotify
+                              Abrir en Spotify
                             </Button>
                             <Button variant="outline" className="text-white border-white hover:bg-white/20">
-                              <Share2 className="mr-2 h-4 w-4" /> Share
+                              <Share2 className="mr-2 h-4 w-4" /> Compartir
                             </Button>
                           </div>
                         </div>
