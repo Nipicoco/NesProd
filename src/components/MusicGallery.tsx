@@ -47,6 +47,7 @@ export default function MusicGallery({ album, onSongClick, onBack }: MusicGaller
                   className="mb-8"
                 >
                   <Card className="bg-white/10 text-white overflow-hidden border-0 shadow-2xl">
+                    
                     <CardContent className="p-6">
                       <div className="flex justify-end">
                         <Button variant="ghost" size="icon" onClick={() => setShowStats(false)}>
