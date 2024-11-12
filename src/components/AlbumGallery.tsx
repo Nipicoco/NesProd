@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowLeft, Music } from "lucide-react"
 import { albums, Album } from '@/app/data/musicData'
+import Image from 'next/image'
 
 interface AlbumGalleryProps {
   onAlbumClick: (album: Album) => void;
@@ -41,7 +42,13 @@ export default function AlbumGallery({ onAlbumClick, onBack }: AlbumGalleryProps
                         onClick={() => onAlbumClick(album)}
                       >
                         <CardContent className="p-0 relative">
-                          <img src={album.cover} alt={album.title} className="w-full h-48 object-cover" />
+                          <Image 
+                            src={album.cover} 
+                            alt={album.title} 
+                            width={400}
+                            height={300}
+                            className="w-full h-48 object-cover" 
+                          />
                           <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-50 transition-opacity duration-300 flex items-center justify-center">
                             {hoveredAlbum === album.id && (
                               <motion.div
