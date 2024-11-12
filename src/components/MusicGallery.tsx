@@ -33,17 +33,9 @@ export default function MusicGallery({ album, onSongClick, onBack }: MusicGaller
   return (
     <div className="min-h-screen bg-[url('/quelede.jpg')] bg-cover bg-center bg-fixed">
       <div className="fixed inset-0 backdrop-blur-md bg-black/50 overflow-hidden">
-        <div className="absolute inset-0 overflow-y-auto">
+        <div className="h-16" />
+        <div className="absolute inset-0 top-16 overflow-y-auto">
           <div className="min-h-screen flex flex-col p-8">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Button onClick={onBack} variant="link" className="text-white mb-4">
-                <ArrowLeft className="mr-2 h-4 w-4" /> Volver
-              </Button>
-            </motion.div>
 
             <AnimatePresence>
               {showStats && (

@@ -10,6 +10,7 @@ import MusicGallery from '@/components/MusicGallery'
 import AlbumDetail from '@/components/SongDetail'
 import ContactForm from '@/components/ContactForm'
 import { Album, Song, topAlbums, topSongs } from '@/app/data/musicData'
+import NavigationBar from '@/components/NavigationBar'
 
 export default function Home() {
   const [currentScreen, setCurrentScreen] = useState('landing')
@@ -58,6 +59,17 @@ export default function Home() {
   return (
     <MusicPlayerProvider>
       <main className="min-h-screen bg-black">
+        {currentScreen !== 'landing' && (
+          <NavigationBar 
+            onBack={goBack}
+            title={
+              currentScreen === 'portfolio' ? 'Portfolio' :
+              currentScreen === 'gallery' ? 'Albums' :
+              currentScreen === 'musicGallery' ? selectedAlbum?.title || 'Album' :
+              currentScreen === 'album' ? selectedSong?.title || 'Song' : 'Home'
+            }
+          />
+        )}
         <div>
           <AnimatePresence mode="wait">
             {currentScreen === 'landing' && (

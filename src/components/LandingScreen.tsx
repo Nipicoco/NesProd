@@ -16,8 +16,13 @@ export default function LandingScreen({ onContinue, onContact, onPortfolio }: La
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
-    setIsLoaded(true)
+    const timer = setTimeout(() => {
+      setIsLoaded(true)
+    }, 100)
+
     audioRef.current = new Audio('/tag.mp3')
+
+    return () => clearTimeout(timer)
   }, [])
 
   const containerVariants: Variants = {
