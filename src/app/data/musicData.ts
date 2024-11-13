@@ -1,3 +1,5 @@
+import { getImageUrl, getAudioUrl } from '@/config/storage'
+
 export interface Album {
   id: string
   title: string
@@ -29,7 +31,7 @@ export const albums: Album[] = [
         id: '1',
         title: 'Partyson',
         artist: 'Cris Mj',
-        cover: '/partyson.jpg',
+        cover: getImageUrl('partyson.jpg'),
         releaseDate: 'Enero 2024',
         spotifyUrl: 'https://open.spotify.com/album/5v3JncpvWjEDrGDeHJw9TL?si=CR_H49otSJu4zMzh52N-0Q',
         songs: [
@@ -38,8 +40,8 @@ export const albums: Album[] = [
                 title: 'Partyson',
                 artist: 'Cris Mj',
                 album: 'Partyson',
-                cover: '/partyson.jpg',
-                audioSrc: '/partyson.mp3',
+                cover: getImageUrl('partyson.jpg'),
+                audioSrc: getAudioUrl('partyson.mp3'),
                 duration: 200,
                 releaseDate: 'Enero 2024',
                 genre: 'Electronic',
@@ -51,8 +53,8 @@ export const albums: Album[] = [
                 title: 'Daytona',
                 artist: 'Cris Mj',
                 album: 'Partyson',
-                cover: '/partyson.jpg',
-                audioSrc: '/daytona.mp3',
+                cover: getImageUrl('partyson.jpg'),
+                audioSrc: getAudioUrl('daytona.mp3'),
                 duration: 200,
                 releaseDate: 'Enero 2024',
                 genre: 'Electronic',
@@ -65,7 +67,7 @@ export const albums: Album[] = [
         id: '3',
         title: 'PALABREO DEL FUTURO',
         artist: 'El Jordan 23',
-        cover: '/palabreo.jpg',
+        cover: getImageUrl('palabreo.jpg'),
         releaseDate: 'Marzo 2024',
         spotifyUrl: 'https://open.spotify.com/album/1UGMwCbhIEk8vI9z0RFVDv?si=I5QEXJprTIe8Z2v7pvRe3w',
         songs: [
@@ -74,8 +76,8 @@ export const albums: Album[] = [
                 title: 'Milano lo Prado',
                 artist: 'El Jordan 23, Shiva, Nes',
                 album: 'PALABREO DEL FUTURO',
-                cover: '/palabreo.jpg',
-                audioSrc: '/milanoloprado.mp3',
+                cover: getImageUrl('palabreo.jpg'),
+                audioSrc: getAudioUrl('milanoloprado.mp3'),
                 duration: 180,
                 releaseDate: 'Marzo 2024',
                 genre: 'Chillout',
@@ -87,8 +89,8 @@ export const albums: Album[] = [
                 title: 'Cabaña',
                 artist: 'El Jordan 23',
                 album: 'PALABREO DEL FUTURO',
-                cover: '/cabana.jpg',
-                audioSrc: '/cabana.mp3',
+                cover: getImageUrl('cabana.jpg'),
+                audioSrc: getAudioUrl('cabana.mp3'),
                 duration: 210,
                 releaseDate: 'Marzo 2024',
                 genre: 'Chillout',
@@ -100,15 +102,13 @@ export const albums: Album[] = [
     // Add more albums here
 ];
 
-
-
 export const topAlbums: Album[] = [
     {
       id: "1",
       title: "QUE LE DE",
       artist: "NES, Cris Mj",
       spotifyUrl: 'https://open.spotify.com/album/5v3JncpvWjEDrGDeHJw9TL?si=CR_H49otSJu4zMzh52N-0Q',
-      cover: "/quelede.jpg",
+      cover: getImageUrl('quelede.jpg'),
       releaseDate: "2023-01-01",
       songs: [
         // Songs for Top Album 1
@@ -119,7 +119,7 @@ export const topAlbums: Album[] = [
       title: "Partyson",
       artist: "Cris Mj",
       spotifyUrl: 'https://open.spotify.com/album/5v3JncpvWjEDrGDeHJw9TL?si=CR_H49otSJu4zMzh52N-0Q',
-      cover: "/partyson.jpg",
+      cover: getImageUrl('partyson.jpg'),
       releaseDate: "2023-02-01",
       songs: [
         // Songs for Top Album 2
@@ -130,7 +130,7 @@ export const topAlbums: Album[] = [
       title: "No Ponga Excusas",
       artist: "Cris Mj",
       spotifyUrl: 'https://open.spotify.com/album/3j9j0wgXwhQyr4urIIkfL4?si=eZssBc6ATrGkNhimo_rBqw',
-      cover: "/nopongaexcusa.jpg",
+      cover: getImageUrl('nopongaexcusa.jpg'),
       releaseDate: "2023-03-01",
       songs: [
         // Songs for Top Album 3
@@ -146,8 +146,8 @@ export const topSongs: Song[] = [
     title: "SI NO ES CONTIGO", 
     artist: "Cris Mj", 
     album: "Si NO ES CONTIGO",
-    cover: "/sinoescontigo.jpg",
-    audioSrc: "/sinoescontigo.mp3",
+    cover: getImageUrl('sinoescontigo.jpg'),
+    audioSrc: getAudioUrl('sinoescontigo.mp3'),
     releaseDate: "2017-04-28",
     genre: "Hip-Hop",
     totalplays: 250544054,
@@ -161,8 +161,8 @@ export const topSongs: Song[] = [
     title: "Cabaña", 
     artist: "El Jordan 23", 
     album: "PALABREO DEL FUTURO",
-    cover: "/cabana.jpg",
-    audioSrc: "/cabana.mp3",
+    cover: getImageUrl('cabana.jpg'),
+    audioSrc: getAudioUrl('cabana.mp3'),
     releaseDate: "2024-06-16",
     genre: "R&B",
     totalplays: 250544054,
@@ -176,8 +176,8 @@ export const topSongs: Song[] = [
     title: "Daytona", 
     artist: "Cris Mj", 
     album: "Partyson",
-    cover: "/partyson.jpg",
-    audioSrc: "/daytona.mp3",
+    cover: getImageUrl('partyson.jpg'),
+    audioSrc: getAudioUrl('daytona.mp3'),
     releaseDate: "2017-06-16",
     genre: "R&B",
     totalplays: 250544054,
@@ -191,8 +191,8 @@ export const topSongs: Song[] = [
     title: "No Ponga Excusas", 
     artist: "Cris Mj", 
     album: "No Ponga Excusas",
-    cover: "/nopongaexcusa.jpg",
-    audioSrc: "/nopongaexcusa.mp3",
+    cover: getImageUrl('nopongaexcusa.jpg'),
+    audioSrc: getAudioUrl('nopongaexcusa.mp3'),
     releaseDate: "2017-06-16",
     genre: "R&B",
     totalplays: 250544054,
@@ -206,8 +206,8 @@ export const topSongs: Song[] = [
     title: "Partyson", 
     artist: "Cris Mj", 
     album: "Partyson",
-    cover: "/partyson.jpg",
-    audioSrc: "/partyson.mp3",
+    cover: getImageUrl('partyson.jpg'),
+    audioSrc: getAudioUrl('partyson.mp3'),
     releaseDate: "2017-06-16",
     genre: "R&B",
     totalplays: 250544054,
@@ -221,8 +221,8 @@ export const topSongs: Song[] = [
     title: "Que Hay Amor",
     artist: "Cris Mj",
     album: "Que Hay amor",
-    cover: "/quehayamor.jpg",
-    audioSrc: "/quehayamor.mp3",
+    cover: getImageUrl('quehayamor.jpg'),
+    audioSrc: getAudioUrl('quehayamor.mp3'),
     releaseDate: "2023-04-01",
     genre: "Hip-Hop",
     totalplays: 250544054,
