@@ -27,8 +27,8 @@ export function NavigationMenu({
     { icon: <Music className="h-6 w-6" />, label: 'Portafolio', action: onPortafolio },
     { icon: <Disc className="h-6 w-6" />, label: 'Discografía', action: onDiscography },
     { icon: <ImageIcon className="h-6 w-6" />, label: 'Galería', action: onGallery },
-    { icon: <ShoppingCart className="h-6 w-6" />, label: 'Marketplace', action: onMarketplace },
-    { icon: <Users className="h-6 w-6" />, label: 'Comunidad', action: onCommunity },
+    // { icon: <ShoppingCart className="h-6 w-6" />, label: 'Marketplace', action: onMarketplace },
+    // { icon: <Users className="h-6 w-6" />, label: 'Comunidad', action: onCommunity },
     { icon: <MessageCircle className="h-6 w-6" />, label: 'Contacto', action: onContact },
   ]
 

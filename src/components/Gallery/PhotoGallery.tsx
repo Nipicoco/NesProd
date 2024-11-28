@@ -11,31 +11,31 @@ const photos = [
   {
     id: '1',
     url: getGalleryUrl('1.png'),
-    title: 'NES Studio',
+    title: 'NES World',
     description: 'Produciendo los próximos hits'
   },
   {
     id: '2',
     url: getGalleryUrl('2.jpg'),
-    title: 'Partyson',
-    description: 'El nuevo éxito'
+    title: 'NES World',
+    description: 'Alzanca'
   },
   {
     id: '3',
     url: getGalleryUrl('3.jpg'),
-    title: 'Que Le De',
+    title: 'NES World',
     description: 'Disco de Platino'
   },
   {
     id: '4',
     url: getGalleryUrl('4.jpg'),
-    title: 'Palabreo del Futuro',
+    title: 'NES World',
     description: 'Colaboración con El Jordan 23'
   },
   {
     id: '5',
     url: getGalleryUrl('5.jpg'),
-    title: 'No Ponga Excusas',
+    title: 'NES World',
     description: 'Otro hit más'
   }
 ]
@@ -156,9 +156,7 @@ export default function Gallery({ onBack }: GalleryProps) {
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
                   {photos[currentIndex].title}
                 </h2>
-                <p className="text-sm sm:text-base md:text-xl text-gray-200">
-                  {photos[currentIndex].description}
-                </p>
+                
               </motion.div>
             </div>
           </div>
