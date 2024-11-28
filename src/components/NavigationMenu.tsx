@@ -31,7 +31,7 @@ export function NavigationMenu({
     // { icon: <Users className="h-6 w-6" />, label: 'Comunidad', action: onCommunity },
     { icon: <MessageCircle className="h-6 w-6" />, label: 'Contacto', action: onContact },
   ]
-
+  
   return (
     <motion.div
       initial={{ opacity: 0 }}
