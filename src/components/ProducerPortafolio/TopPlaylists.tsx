@@ -27,7 +27,7 @@ export function TopPlaylists({ playlists }: TopPlaylistsProps) {
       <div className="bg-black/40 backdrop-blur-sm rounded-lg p-6 shadow-2xl">
         <div className="flex items-center gap-2 mb-6">
           <Music className="h-5 w-5" />
-          <h3 className="text-xl font-bold">Featured In Top Playlists</h3>
+          <h3 className="text-xl font-bold">Aparece en las playlists más populares</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -51,7 +51,7 @@ export function TopPlaylists({ playlists }: TopPlaylistsProps) {
                 
                 <div className="flex-1 min-w-0">
                   <h4 className="font-semibold truncate">{playlist.name}</h4>
-                  <p className="text-sm text-gray-400">{playlist.followers} followers</p>
+                  <p className="text-sm text-gray-400">{playlist.followers} seguidores</p>
                 </div>
 
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity">
