@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { Badge } from "@/components/ui/badge"
 
 const profileImages = [
   '/1.png',
@@ -11,16 +10,27 @@ const profileImages = [
   '/3.jpg',
   '/4.jpg',
   '/5.jpg'
-].map((src) => {
-  const img = new window.Image();
-  img.src = src;
-  return { src };
-});
+]
 
 export function ProfileImages() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    // Preload all images
+    Promise.all(
+      profileImages.map((src) => {
+        return new Promise((resolve, reject) => {
+          const img = new window.Image()
+          img.src = src
+          img.onload = resolve
+          img.onerror = reject
+        })
+      })
+    ).then(() => {
+      setIsLoading(false)
+    })
+
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % profileImages.length)
     }, 6000)
@@ -28,22 +38,26 @@ export function ProfileImages() {
     return () => clearInterval(interval)
   }, [])
 
+  if (isLoading) {
+    return <div className="relative h-full bg-black/20 rounded-xl animate-pulse" />
+  }
+
   return (
     <div className="relative h-full overflow-hidden rounded-xl group">
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={currentImageIndex}
-          initial={{ opacity: 0, scale: 1.1 }}
+          initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ 
-            duration: 0.8,
+            duration: 0.5,
             ease: [0.32, 0.72, 0, 1]
           }}
           className="absolute inset-0"
         >
           <Image
-            src={profileImages[currentImageIndex].src}
+            src={profileImages[currentImageIndex]}
             alt="Producer Profile"
             fill
             className="object-cover"
