@@ -22,20 +22,26 @@ const quicksand = Quicksand({
 export const metadata: Metadata = {
   title: "NES Producciones",
   description: "HACIENDO MILLONES",
-  icons: {
-    icon: [
+  openGraph: {
+    title: 'NES Producciones',
+    description: 'HACIENDO MILLONES',
+    images: [
       {
-        url: '/icon.png',
-        href: '/icon.png',
+        url: '/NES.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'NES Producciones',
       }
-    ]
+    ],
+    locale: 'es_ES',
+    type: 'website',
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
-  manifest: '/manifest.json',
+  twitter: {
+    card: 'summary_large_image',
+    title: 'NES Producciones',
+    description: 'HACIENDO MILLONES',
+    images: ['/og-image.jpg'],
+  }
 }
 
 export default function RootLayout({
