@@ -12,6 +12,7 @@ import { useMusicPlayer } from '@/app/contexts/MusicPlayerContext'
 import React from 'react'
 import { DynamicShowcase } from './ProducerPortafolio/DynamicShowcase'
 import { TopPlaylists } from './ProducerPortafolio/TopPlaylists'
+import { ProfileImages } from './ProducerPortafolio/ProfileImages'
 
 interface ProducerPortafolioProps {
   onContinue: () => void
@@ -20,6 +21,17 @@ interface ProducerPortafolioProps {
   topSongs: Song[]
 }
 
+interface ProfileImage {
+  src: string;
+}
+
+export const profileImages: ProfileImage[] = [
+  { src: '/1.png' },
+  { src: '/2.jpg' },
+  { src: '/3.jpg' },
+  { src: '/4.jpg' },
+  { src: '/5.jpg' }
+];
 type SocialMediaPlatform = 'instagram' | 'spotify'
 
 const socialMediaConfig: Record<SocialMediaPlatform, { color: string, Icon: React.ElementType }> = {
@@ -73,17 +85,7 @@ interface FeaturedProject {
   }
 }
 
-const profileImages = [
-  '/1.png',
-  '/2.jpg',
-  '/3.jpg',
-  '/4.jpg',
-  '/5.jpg'
-].map((src) => {
-  const img = new window.Image();
-  img.src = src;
-  return { src };
-});
+
 
 interface ProducerInfoType {
   location: {
@@ -202,6 +204,7 @@ const topPlaylists = [
   }
 ]
 
+
 export default function ProducerPortafolio({ onContinue, onBack, albums, topSongs }: ProducerPortafolioProps) {
   const { pause, playSpecificSong, isSongPlaying } = useMusicPlayer()
   const [hoveredAlbum, setHoveredAlbum] = useState<string | null>(null)
@@ -210,7 +213,7 @@ export default function ProducerPortafolio({ onContinue, onBack, albums, topSong
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % profileImages.length)
-    }, 6000) // Changed to 6 seconds
+    }, 6000)
 
     return () => clearInterval(interval)
   }, [])
@@ -366,12 +369,12 @@ export default function ProducerPortafolio({ onContinue, onBack, albums, topSong
                           <AnimatePresence mode="wait" initial={false}>
                             <motion.div
                               key={currentImageIndex}
-                              initial={{ opacity: 0, x: 20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              exit={{ opacity: 0, x: -20 }}
+                              initial={{ opacity: 0, scale: 1.1 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.95 }}
                               transition={{ 
-                                duration: 0.7,
-                                ease: [0.32, 0.72, 0, 1] // Custom easing for smoother animation
+                                duration: 0.8,
+                                ease: [0.32, 0.72, 0, 1]
                               }}
                               className="absolute inset-0"
                             >
@@ -382,7 +385,7 @@ export default function ProducerPortafolio({ onContinue, onBack, albums, topSong
                                 className="object-cover"
                                 priority
                                 sizes="(max-width: 768px) 100vw, 380px"
-                                quality={90}
+                                quality={95}
                               />
                               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80" />
                             </motion.div>
@@ -390,7 +393,7 @@ export default function ProducerPortafolio({ onContinue, onBack, albums, topSong
                           
                           {/* Image navigation dots */}
                           <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20">
-                            {profileImages.map((_, index) => (
+                            {profileImages.map((_, index: number) => (
                               <button
                                 key={index}
                                 onClick={() => setCurrentImageIndex(index)}
