@@ -1,6 +1,7 @@
 'use client'
 
-import React, { createContext, useContext, useState, useEffect, useRef } from 'react'
+import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react'
+import { debounce, throttle } from '@/lib/performance'
 
 type Song = {
   id: string
@@ -36,6 +37,8 @@ export const useMusicPlayer = () => {
   return context
 }
 
+const AUDIO_CACHE = new Map<string, HTMLAudioElement>()
+
 export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentSong, setCurrentSong] = useState<Song | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -43,71 +46,146 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [volume, setVolume] = useState(0.5)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [currentTime, setCurrentTime] = useState(0)
+  const [audioInitialized, setAudioInitialized] = useState(false)
+
+  // Debounced volume setter to prevent rapid updates
+  const debouncedSetVolume = useCallback((newVolume: number) => {
+    const setVol = debounce((vol: number) => {
+      if (audioRef.current) {
+        audioRef.current.volume = vol
+      }
+    }, 100)
+    setVol(newVolume)
+  }, [audioRef])
+
+  // Throttled audio time updater
+  const throttledTimeUpdate = useCallback(() => {
+    const updateTime = throttle(() => {
+      if (audioRef.current) {
+        setCurrentTime(audioRef.current.currentTime)
+      }
+    }, 1000)
+    updateTime()
+  }, [audioRef, setCurrentTime])
 
   useEffect(() => {
-    if (audioRef.current) {
+    if (typeof window !== 'undefined' && !audioInitialized) {
+      audioRef.current = new Audio()
       audioRef.current.volume = volume
-    }
-  }, [volume])
+      setAudioInitialized(true)
 
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.src = currentSong?.audioSrc || ''
-      audioRef.current.volume = volume
-      if (isPlaying) {
-        audioRef.current.currentTime = currentTime
-        audioRef.current.play().catch(error => {
-          console.error('Error playing audio:', error)
-          setIsPlaying(false)
-        })
-      } else {
-        audioRef.current.pause()
+      // Preload next song in playlist
+      if (playlist.length > 1) {
+        const nextSongIndex = (playlist.findIndex(song => song.id === currentSong?.id) + 1) % playlist.length
+        const nextSong = playlist[nextSongIndex]
+        if (nextSong && !AUDIO_CACHE.has(nextSong.id)) {
+          const audio = new Audio()
+          audio.preload = 'metadata'
+          audio.src = nextSong.audioSrc
+          AUDIO_CACHE.set(nextSong.id, audio)
+        }
       }
     }
-  }, [currentSong, isPlaying, currentTime, volume])
+  }, [audioInitialized, volume, playlist, currentSong])
 
-  const play = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = currentTime
-      audioRef.current.play().then(() => {
-        setIsPlaying(true)
-      }).catch(error => {
-        console.error('Error playing audio:', error)
-      })
+  useEffect(() => {
+    debouncedSetVolume(volume)
+  }, [volume, debouncedSetVolume])
+
+  const handleTimeUpdate = useCallback(() => {
+    throttledTimeUpdate()
+  }, [throttledTimeUpdate])
+
+  useEffect(() => {
+    if (!audioRef.current || !audioInitialized || !currentSong) return
+
+    const audio = audioRef.current
+
+    // Try to get cached audio element
+    if (AUDIO_CACHE.has(currentSong.id)) {
+      const cachedAudio = AUDIO_CACHE.get(currentSong.id)!
+      audio.src = cachedAudio.src
+    } else {
+      audio.src = currentSong.audioSrc
     }
-  }
 
-  const pause = () => {
+    audio.volume = volume
+
+    if (isPlaying) {
+      const playPromise = audio.play()
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.warn('Playback prevented:', error)
+          setIsPlaying(false)
+        })
+      }
+    } else {
+      audio.pause()
+    }
+
+    audio.addEventListener('timeupdate', handleTimeUpdate)
+
+    return () => {
+      audio.removeEventListener('timeupdate', handleTimeUpdate)
+      audio.pause()
+      audio.currentTime = 0
+    }
+  }, [currentSong, isPlaying, audioInitialized, volume, handleTimeUpdate])
+
+  const play = useCallback(() => {
+    if (!audioRef.current || !audioInitialized) return
+    
+    const playPromise = audioRef.current.play()
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => setIsPlaying(true))
+        .catch(error => {
+          console.warn('Playback prevented:', error)
+          setIsPlaying(false)
+        })
+    }
+  }, [audioInitialized])
+
+  const pause = useCallback(() => {
+    if (!audioRef.current || !audioInitialized) return
+    
+    audioRef.current.pause()
     setIsPlaying(false)
-    if (audioRef.current) {
-      setCurrentTime(audioRef.current.currentTime)
-      audioRef.current.pause()
-    }
-  }
+    setCurrentTime(audioRef.current.currentTime)
+  }, [audioInitialized])
 
-  const next = () => {
+  const next = useCallback(() => {
     const currentIndex = playlist.findIndex(song => song.id === currentSong?.id)
     const nextSong = playlist[(currentIndex + 1) % playlist.length]
     setCurrentSong(nextSong)
     setCurrentTime(0)
-  }
 
-  const previous = () => {
+    // Preload the next song after this one
+    const nextNextSong = playlist[(currentIndex + 2) % playlist.length]
+    if (nextNextSong && !AUDIO_CACHE.has(nextNextSong.id)) {
+      const audio = new Audio()
+      audio.preload = 'metadata'
+      audio.src = nextNextSong.audioSrc
+      AUDIO_CACHE.set(nextNextSong.id, audio)
+    }
+  }, [playlist, currentSong])
+
+  const previous = useCallback(() => {
     const currentIndex = playlist.findIndex(song => song.id === currentSong?.id)
     const previousSong = playlist[(currentIndex - 1 + playlist.length) % playlist.length]
     setCurrentSong(previousSong)
     setCurrentTime(0)
-  }
+  }, [playlist, currentSong])
 
-  const playSpecificSong = (song: Song) => {
+  const playSpecificSong = useCallback((song: Song) => {
     setCurrentSong(song)
     setCurrentTime(0)
     setIsPlaying(true)
-  }
+  }, [])
 
-  const isSongPlaying = (songId: string) => {
+  const isSongPlaying = useCallback((songId: string) => {
     return isPlaying && currentSong?.id === songId
-  }
+  }, [isPlaying, currentSong])
 
   useEffect(() => {
     if (playlist.length > 0 && !currentSong) {
@@ -115,30 +193,54 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({ c
     }
   }, [playlist, currentSong])
 
+  const handleEnded = useCallback(() => {
+    next()
+  }, [next])
+
+  const handleError = useCallback((e: Event) => {
+    console.warn('Audio error:', e)
+    setIsPlaying(false)
+  }, [])
+
+  useEffect(() => {
+    if (!audioRef.current || !audioInitialized) return
+
+    const audio = audioRef.current
+    
+    audio.addEventListener('ended', handleEnded)
+    audio.addEventListener('error', handleError)
+
+    return () => {
+      audio.removeEventListener('ended', handleEnded)
+      audio.removeEventListener('error', handleError)
+    }
+  }, [audioInitialized, handleEnded, handleError])
+
+  // Cleanup cache on unmount
+  useEffect(() => {
+    return () => {
+      AUDIO_CACHE.clear()
+    }
+  }, [])
+
+  const value = {
+    currentSong,
+    isPlaying,
+    playlist,
+    volume,
+    play,
+    pause,
+    next,
+    previous,
+    setPlaylist,
+    playSpecificSong,
+    setVolume,
+    isSongPlaying,
+  }
+
   return (
-    <MusicPlayerContext.Provider value={{
-      currentSong,
-      isPlaying,
-      playlist,
-      volume,
-      play,
-      pause,
-      next,
-      previous,
-      setPlaylist,
-      playSpecificSong,
-      setVolume,
-      isSongPlaying,
-    }}>
+    <MusicPlayerContext.Provider value={value}>
       {children}
-      <audio 
-        ref={audioRef} 
-        onEnded={next}
-        onError={(e) => {
-          console.error('Audio error:', e)
-          setIsPlaying(false)
-        }} 
-      />
     </MusicPlayerContext.Provider>
   )
 }

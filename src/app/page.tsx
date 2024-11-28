@@ -1,53 +1,57 @@
-"use client"
-import { useState } from 'react'
+'use client'
+
+import { useState, useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { MusicPlayerProvider } from './contexts/MusicPlayerContext'
 import { Toaster } from "@/components/ui/toaster"
 import LandingScreen from '@/components/LandingScreen'
-import AlbumGallery from '@/components/AlbumGallery'
-import ProducerPortfolio from '@/components/ProducerPortfolio'
-import MusicGallery from '@/components/MusicGallery'
-import AlbumDetail from '@/components/SongDetail'
-import ContactForm from '@/components/ContactForm'
-import { Album, Song, topAlbums, topSongs } from '@/app/data/musicData'
+import Discography from '@/components/Discography/Discography'
+import ProducerPortafolio from '@/components/ProducerPortafolio'
+import Marketplace from '@/components/Marketplace/Marketplace'
+import Community from '@/components/Community'
+import ContactForm from '@/components/ContactForm/ContactForm'
+import Gallery from '@/components/Gallery/PhotoGallery'
+import { Album, Song, topAlbums, topSongs } from '@/data/musicData'
 import NavigationBar from '@/components/NavigationBar'
+import Cookies from 'js-cookie'
 
-export default function Home() {
+export default function Page() {
+  useEffect(() => {
+    // Set cookie consent by default
+    Cookies.set('cookieConsent', 'true', { expires: 365 })
+  }, [])
+
   const [currentScreen, setCurrentScreen] = useState('landing')
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null)
   const [selectedSong, setSelectedSong] = useState<Song | null>(null)
   const [isContactFormVisible, setIsContactFormVisible] = useState(false)
   
+  const transitionToDiscography = () => {
+    setCurrentScreen('discography')
+  }
+
   const transitionToGallery = () => {
     setCurrentScreen('gallery')
   }
 
-  const transitionToPortfolio = () => {
-    setCurrentScreen('portfolio')
+  const transitionToPortafolio = () => {
+    setCurrentScreen('Portafolio')
+  }
+
+  const transitionToMarketplace = () => {
+    setCurrentScreen('marketplace')
+  }
+
+  const transitionToCommunity = () => {
+    setCurrentScreen('community')
   }
 
   const transitionToContact = () => {
     setIsContactFormVisible(true)
   }
 
-  const transitionToAlbum = (album: Album) => {
-    setSelectedAlbum(album)
-    setCurrentScreen('musicGallery')
-  }
-
-  const transitionToSongDetail = (song: Song) => {
-    setSelectedSong(song)
-    setCurrentScreen('album')
-  }
-
   const goBack = () => {
-    if (currentScreen === 'album') {
-      setCurrentScreen('musicGallery')
-    } else if (currentScreen === 'musicGallery') {
-      setCurrentScreen('gallery')
-    } else if (currentScreen === 'gallery') {
-      setCurrentScreen('landing')
-    } else if (currentScreen === 'portfolio') {
+    if (['discography', 'gallery', 'Portafolio', 'marketplace', 'community'].includes(currentScreen)) {
       setCurrentScreen('landing')
     }
   }
@@ -63,29 +67,57 @@ export default function Home() {
           <NavigationBar 
             onBack={goBack}
             title={
-              currentScreen === 'portfolio' ? 'Portfolio' :
-              currentScreen === 'gallery' ? 'Albums' :
-              currentScreen === 'musicGallery' ? selectedAlbum?.title || 'Album' :
-              currentScreen === 'album' ? selectedSong?.title || 'Song' : 'Home'
+              currentScreen === 'Portafolio' ? 'Portafolio' :
+              currentScreen === 'discography' ? 'Discografía' :
+              currentScreen === 'gallery' ? 'Galería' :
+              currentScreen === 'marketplace' ? 'Marketplace' :
+              currentScreen === 'community' ? 'Comunidad' : 'Home'
             }
           />
         )}
         <div>
           <AnimatePresence mode="wait">
             {currentScreen === 'landing' && (
-              <LandingScreen key="landing" onContinue={transitionToGallery} onContact={transitionToContact} onPortfolio={transitionToPortfolio} />
+              <LandingScreen 
+                key="landing" 
+                onDiscography={transitionToDiscography}
+                onGallery={transitionToGallery}
+                onContact={transitionToContact} 
+                onPortafolio={transitionToPortafolio}
+                onMarketplace={transitionToMarketplace}
+                onCommunity={transitionToCommunity}
+              />
             )}
-            {currentScreen === 'portfolio' && (
-              <ProducerPortfolio key="portfolio" onBack={goBack} onContinue={transitionToGallery}  albums={topAlbums} topSongs={topSongs} />
+            {currentScreen === 'Portafolio' && (
+              <ProducerPortafolio 
+                key="Portafolio" 
+                onBack={goBack} 
+                onContinue={transitionToDiscography} 
+                albums={topAlbums} 
+                topSongs={topSongs} 
+              />
+            )}
+            {currentScreen === 'discography' && (
+              <Discography 
+                key="discography" 
+                onBack={goBack}
+              />
             )}
             {currentScreen === 'gallery' && (
-              <AlbumGallery key="gallery" onAlbumClick={transitionToAlbum} onBack={goBack} />
+              <Gallery 
+                key="gallery" 
+                onBack={goBack}
+              />
             )}
-            {currentScreen === 'musicGallery' && selectedAlbum && (
-              <MusicGallery key="musicGallery" album={selectedAlbum} onSongClick={transitionToSongDetail} onBack={goBack} />
+            {currentScreen === 'marketplace' && (
+              <Marketplace 
+                key="marketplace"
+              />
             )}
-            {currentScreen === 'album' && selectedSong && (
-              <AlbumDetail key="album" song={selectedSong} onBack={goBack} />
+            {currentScreen === 'community' && (
+              <Community 
+                key="community"
+              />
             )}
           </AnimatePresence>
         </div>

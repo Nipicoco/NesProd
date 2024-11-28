@@ -8,7 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowLeft, Play, Pause, Clock } from "lucide-react"
 import { useMusicPlayer } from '@/app/contexts/MusicPlayerContext'
 import Image from 'next/image'
-import { Song } from '@/app/data/musicData'
+import { Song } from '@/data/musicData'
+import { getImageUrl } from '@/config/storage'
 
 interface SongDetailProps {
   song: Song
@@ -49,7 +50,9 @@ export default function SongDetail({ song, onBack }: SongDetailProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[url('/quelede.jpg')] bg-cover bg-center flex items-center justify-center p-4 md:p-8 relative">
+    <div className="min-h-screen bg-cover bg-center flex items-center justify-center p-4 md:p-8 relative"
+      style={{ backgroundImage: `url('${getImageUrl('quelede.jpg')}')`}}
+    >
       <div className="absolute inset-0 backdrop-blur-md bg-black/70"></div>
       <motion.div
         className="w-full max-w-4xl z-10"
@@ -168,7 +171,7 @@ export default function SongDetail({ song, onBack }: SongDetailProps) {
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-center">
                   <Clock className="mr-2 h-5 w-5 text-gray-400" />
-                  <span>{song.totalplays.toLocaleString()} Reproducciones</span>
+                  <span>{song.totalplays?.toLocaleString()} Reproducciones</span>
                 </div>
               </div>
             </motion.div>

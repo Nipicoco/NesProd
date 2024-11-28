@@ -5,8 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowLeft, Play, Pause, Music, Disc, Clock, Calendar, Share2, X } from "lucide-react"
-import { Album, Song } from '@/app/data/musicData'
+import { Album, Song } from '@/data/musicData'
 import { useMusicPlayer } from '@/app/contexts/MusicPlayerContext'
+import { getImageUrl } from '@/config/storage'
 
 interface MusicGalleryProps {
   album: Album
@@ -27,11 +28,14 @@ export default function MusicGallery({ album, onSongClick, onBack }: MusicGaller
     }
   }
 
-  const totalPlays = album.songs.reduce((sum, song) => sum + song.totalplays, 0)
+  const totalPlays = album.songs.reduce((sum, song) => sum + (song.totalplays || 0), 0)
   const totalDuration = album.songs.reduce((sum, song) => sum + (song.duration || 0), 0)
 
   return (
-    <div className="min-h-screen bg-[url('/quelede.jpg')] bg-cover bg-center bg-fixed">
+    <div 
+      className="min-h-screen bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: `url('${getImageUrl('quelede.jpg')}')`}}
+    >
       <div className="fixed inset-0 backdrop-blur-md bg-black/50 overflow-hidden">
         <div className="h-16" />
         <div className="absolute inset-0 top-16 overflow-y-auto">
@@ -56,7 +60,7 @@ export default function MusicGallery({ album, onSongClick, onBack }: MusicGaller
                       </div>
                       <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
                         <img
-                          src={album.cover || '/placeholder.svg?height=300&width=300'}
+                          src={album.cover}
                           alt={album.title}
                           width={300}
                           height={300}
@@ -128,7 +132,7 @@ export default function MusicGallery({ album, onSongClick, onBack }: MusicGaller
                     <Card className="bg-white/10 cursor-pointer" onClick={() => onSongClick(song)}>
                       <CardContent className="p-0 relative">
                         <img
-                          src={song.cover || '/placeholder.svg?height=200&width=200'}
+                          src={song.cover}
                           alt={song.title}
                           width={200}
                           height={200}

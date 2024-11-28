@@ -11,6 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        quicksand: ['var(--font-quicksand)', ...fontFamily.sans],
         heading: ['var(--font-heading)', ...fontFamily.sans],
         body: ['var(--font-body)', ...fontFamily.mono]
       },
