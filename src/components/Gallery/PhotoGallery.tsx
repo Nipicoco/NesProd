@@ -10,31 +10,31 @@ import Image from 'next/image'
 const photos = [
   {
     id: '1',
-    url: getGalleryUrl('1.png'),
+    url: '/1.png'  ,
     title: 'NES World',
     description: 'Produciendo los próximos hits'
   },
   {
     id: '2',
-    url: getGalleryUrl('2.jpg'),
+    url: '/2.jpg',
     title: 'NES World',
     description: 'Alzanca'
   },
   {
     id: '3',
-    url: getGalleryUrl('3.jpg'),
+    url: '/3.jpg',
     title: 'NES World',
     description: 'Disco de Platino'
   },
   {
     id: '4',
-    url: getGalleryUrl('4.jpg'),
+    url: '/4.jpg',
     title: 'NES World',
     description: 'Colaboración con El Jordan 23'
   },
   {
     id: '5',
-    url: getGalleryUrl('5.jpg'),
+    url: '/5.jpg',
     title: 'NES World',
     description: 'Otro hit más'
   }

@@ -9,7 +9,6 @@ import { Music, Award, TrendingUp, Mail, Star, Play, Pause, Calendar, Mic2, Slid
 import { Album, Song } from '@/data/musicData'
 import Image from 'next/image'
 import { useMusicPlayer } from '@/app/contexts/MusicPlayerContext'
-import { getImageUrl, getGalleryUrl } from '@/config/storage'
 import React from 'react'
 import { DynamicShowcase } from './ProducerPortafolio/DynamicShowcase'
 import { TopPlaylists } from './ProducerPortafolio/TopPlaylists'
@@ -75,13 +74,16 @@ interface FeaturedProject {
 }
 
 const profileImages = [
-  '1.png',
-  '2.jpg',
-  '3.jpg',
-  '4.jpg',
-  '5.jpg'
-]
-
+  '/1.png',
+  '/2.jpg',
+  '/3.jpg',
+  '/4.jpg',
+  '/5.jpg'
+].map((src) => {
+  const img = new window.Image();
+  img.src = src;
+  return { src };
+});
 
 interface ProducerInfoType {
   location: {
@@ -140,7 +142,7 @@ const producerInfo: ProducerInfoType = {
     }
   },
   name: "NES",
-  image: getGalleryUrl(profileImages[0]),
+  image: profileImages[0].src,
   bio: "Joaquín Nicolás Rodríguez Vergara (NES), de 23 años, nació en Villarrica, Chile. Desde temprana edad ha estado inmerso en el mundo de la música, desarrollando habilidades en composición y producción musical. A través de los años, ha perfeccionado un estilo distintivo que combina magistralmente elementos del trap, reggaetón y música electrónica, consolidándose como uno de los productores más destacados de la escena musical latinoamericana.",
   achievements: [
     { id: 1, description: "Más de 15 discos de platino", isBiggest: true },
@@ -208,7 +210,7 @@ export default function ProducerPortafolio({ onContinue, onBack, albums, topSong
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % profileImages.length)
-    }, 5000) // Change image every 5 seconds
+    }, 6000) // Changed to 6 seconds
 
     return () => clearInterval(interval)
   }, [])
@@ -340,7 +342,7 @@ export default function ProducerPortafolio({ onContinue, onBack, albums, topSong
 
   return (
     <div className="min-h-screen bg-cover bg-center bg-fixed pt-20 relative"
-         style={{ backgroundImage: `url('${getImageUrl('quelede.jpg')}')` }}>
+         style={{ backgroundImage: `url('${('/quelede.jpg')}')` }}>
       <div className="fixed inset-0 backdrop-blur-sm bg-black/40" />
       
       {/* Content container */}
@@ -361,21 +363,26 @@ export default function ProducerPortafolio({ onContinue, onBack, albums, topSong
                       {/* Profile Image Section */}
                       <div className="relative w-full md:w-[380px] aspect-square">
                         <div className="relative h-full overflow-hidden rounded-xl group">
-                          <AnimatePresence mode="wait">
+                          <AnimatePresence mode="wait" initial={false}>
                             <motion.div
                               key={currentImageIndex}
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              exit={{ opacity: 0 }}
-                              transition={{ duration: 0.5 }}
+                              initial={{ opacity: 0, x: 20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: -20 }}
+                              transition={{ 
+                                duration: 0.7,
+                                ease: [0.32, 0.72, 0, 1] // Custom easing for smoother animation
+                              }}
                               className="absolute inset-0"
                             >
                               <Image
-                                src={getGalleryUrl(profileImages[currentImageIndex])}
+                                src={profileImages[currentImageIndex].src}
                                 alt={producerInfo.name}
                                 fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                className="object-cover"
                                 priority
+                                sizes="(max-width: 768px) 100vw, 380px"
+                                quality={90}
                               />
                               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80" />
                             </motion.div>
